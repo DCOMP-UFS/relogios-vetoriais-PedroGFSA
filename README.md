@@ -2,7 +2,7 @@
 # RelogiosVetoriais_C
 Base para a implementação de relógios vetoriais em C
 
-Grupo: Pedro Guilherme de Farias Souza Almeida
-       Wayner Roran Moraes Rolim
+Grupo: Pedro Guilherme de Farias Souza Almeida,
+       Wayner Roran Moraes Rolim,
        Paulo Hercilio Araujo Santana
 
