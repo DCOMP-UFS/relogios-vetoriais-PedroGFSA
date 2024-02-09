@@ -29,10 +29,10 @@ void Event(int pid, Clock *clock){
 void Send(int pidSender, int pidReceiver, Clock *clockSender){
    // TO DO
   
-  Event(pidSender, clockSender);
-  MPI_Send(clockSender, sizeof(Clock), MPI_BYTE, pidReceiver, 0, MPI_COMM_WORLD);
+ Event(pidSender, clockSender);
+ MPI_Send(clockSender, sizeof(Clock), MPI_BYTE, pidReceiver, 0, MPI_COMM_WORLD);
   
-  printf("Process: %d, Clock: (%d, %d, %d)\n", pidSender, clockSender->p[0], clockSender->p[1], clockSender->p[2]);
+
 }
 
 void Receive(int pidSender, int pidReceiver, Clock *clockReceiver){
@@ -43,7 +43,7 @@ void Receive(int pidSender, int pidReceiver, Clock *clockReceiver){
    for(int i = 0; i < 3; i++) {
       clockReceiver->p[i] = max(clockMsg.p[i], clockReceiver->p[i]);
    }
-   printf("Process: %d, Clock: (%d, %d, %d)\n", pidReceiver, clockReceiver->p[0], clockReceiver->p[1], clockReceiver->p[2]);
+  
 }
 
 // Representa o processo de rank 0
@@ -56,10 +56,15 @@ void process0(){
    // TO DO
 
    Send(0, 1, &clock); // b
+   printf("Process: %d, Clock: (%d, %d, %d)\n", 0, clock.p[0], clock.p[1], clock.p[2]);
    Receive(1, 0, &clock); // c
+   printf("Process: %d, Clock: (%d, %d, %d)\n", 0, clock.p[0], clock.p[1], clock.p[2]);
    Send(0, 2, &clock); // d
+   printf("Process: %d, Clock: (%d, %d, %d)\n", 0, clock.p[0], clock.p[1], clock.p[2]);
    Receive(2, 0, &clock); // e
+   printf("Process: %d, Clock: (%d, %d, %d)\n", 0, clock.p[0], clock.p[1], clock.p[2]);
    Send(0, 1, &clock); // f
+   printf("Process: %d, Clock: (%d, %d, %d)\n", 0, clock.p[0], clock.p[1], clock.p[2]);
    Event(0, &clock); // g
    printf("Process: %d, Clock: (%d, %d, %d)\n", 0, clock.p[0], clock.p[1], clock.p[2]);
 }
@@ -71,8 +76,11 @@ void process1(){
 
    // TO DO
    Send(1, 0, &clock); // h
+   printf("Process: %d, Clock: (%d, %d, %d)\n", 1, clock.p[0], clock.p[1], clock.p[2]);
    Receive(0, 1, &clock); // i
+   printf("Process: %d, Clock: (%d, %d, %d)\n", 1, clock.p[0], clock.p[1], clock.p[2]);
    Receive(0, 1, &clock); // j
+   printf("Process: %d, Clock: (%d, %d, %d)\n", 1, clock.p[0], clock.p[1], clock.p[2]);
    
    
 }
@@ -88,7 +96,9 @@ void process2(){
    printf("Process: %d, Clock: (%d, %d, %d)\n", 2, clock.p[0], clock.p[1], clock.p[2]);
    
    Send(2, 0, &clock); // l
+   printf("Process: %d, Clock: (%d, %d, %d)\n", 2, clock.p[0], clock.p[1], clock.p[2]);
    Receive(0, 2, &clock); // m
+   printf("Process: %d, Clock: (%d, %d, %d)\n", 2, clock.p[0], clock.p[1], clock.p[2]);
 }
 
 int main(void) {
